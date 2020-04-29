@@ -91,6 +91,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div id="landingPage">Landing Page</div>
+
         <div className="header">
           <Search handleChange={this.onSearchChange} />
           <div id="avatar">

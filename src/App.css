@@ -1,6 +1,6 @@
 .App {
   width: auto;
-  min-height: 600px;
+  min-height: 2000px;
   background-color: #e6faff;
   margin: 10px;
 }
@@ -95,5 +95,16 @@ table tbody tr {
 
 h3 {
   margin-left: 30px;
-  color: #242582;
+  color: #2f2fa2;
+  background: -webkit-linear-gradient(#4b6cb7, #182848);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#landingPage {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 565px 1242px 0 0;
+  border-color: #007bff transparent transparent transparent;
+  margin-bottom: 50px;
 }
