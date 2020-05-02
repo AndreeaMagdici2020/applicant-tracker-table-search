@@ -3,14 +3,18 @@ import NewFormItem from "./NewFormItem";
 import "./App.css";
 import Search from "./Search";
 import ImageAvatars from "./Avatar";
-import Checkbox from "@material-ui/core/Checkbox";
 
+import Clock from "./Clock";
+import logo_size_invert from "./logo_size_invert.jpg";
+
+var i = 3;
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       item: [
         {
+          id: 1,
           prenume: "Ionela",
           nume: "Stan",
           mail: "istan@mail.com",
@@ -20,6 +24,7 @@ class App extends Component {
           key: Date.now(),
         },
         {
+          id: 2,
           prenume: "Mihaela",
           nume: "Onofrei",
           mail: "monofrei@mail.com",
@@ -29,6 +34,7 @@ class App extends Component {
           key: Date.now(),
         },
         {
+          id: 3,
           prenume: "Sorina",
           nume: "Mihalache",
           mail: "smihalache@mail.com",
@@ -48,15 +54,31 @@ class App extends Component {
       query: "",
       columnToQuery: "prenume",
       searchTerm: "",
+      selectedApplicant: null,
+      detailsTitle: "",
     };
     this.handleInput = this.handleInput.bind(this);
     this.addItem = this.addItem.bind(this);
+    this.onSelectApplicant = this.onSelectApplicant.bind(this);
   }
+
   handleInput = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
       key: Date.now(),
     });
+  };
+  generateId = () => {
+    i = i + 1;
+    return i;
+  };
+  onSelectApplicant = (item) => {
+    this.setState({
+      selectedApplicant: item,
+      applicantDetails: "Nume:" + " " + item.prenume + " " + item.nume,
+    });
+    console.log("the item was clicked");
+    console.log(item.prenume);
   };
   addItem = (event) => {
     event.preventDefault();
@@ -68,8 +90,9 @@ class App extends Component {
       lastEmployer: this.state.lastEmployer,
       currentTitle: this.state.currentTitle,
       key: Date.now(),
+      id: this.generateId(),
     };
-    console.log(newItem);
+    // console.log(newItem);
     if (newItem.prenume !== "") {
       const newItems = [...this.state.item, newItem];
       this.setState({
@@ -82,7 +105,7 @@ class App extends Component {
         currentTitle: "",
         key: "",
       });
-      console.log("newItems este:", newItems);
+      // console.log("newItems este:", newItems);
     }
   };
   onSearchChange = (event) => {
@@ -91,7 +114,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div id="landingPage">Landing Page</div>
+        <div>
+          <div id="landingPage">
+            <div className="logo">
+              <img src={logo_size_invert} />
+            </div>
+            <p>APPLICANT TRACKING SYSTEM</p>{" "}
+            <div className="Clock">
+              <Clock />
+            </div>
+          </div>
+        </div>
 
         <div className="header">
           <Search handleChange={this.onSearchChange} />
@@ -167,62 +200,46 @@ class App extends Component {
                   <th>Current Employer</th>
                   <th>Current Title</th>
                   <th>Selected</th>
+                  <th>ID</th>
                 </tr>
               </thead>
-              <tbody>
-                {this.state.item
-                  .filter(
-                    (item) =>
-                      item.prenume
-                        .toLowerCase()
-                        .includes(this.state.searchTerm) ||
-                      item.nume.toLowerCase().includes(this.state.searchTerm) ||
-                      item.mail.toLowerCase().includes(this.state.searchTerm) ||
-                      item.phone
-                        .toLowerCase()
-                        .includes(this.state.searchTerm) ||
-                      item.lastEmployer
-                        .toLowerCase()
-                        .includes(this.state.searchTerm) ||
-                      item.currentTitle
-                        .toLowerCase()
-                        .includes(this.state.searchTerm)
-                  )
-                  .map((item) => {
-                    return (
-                      <tr>
-                        <td>
-                          <NewFormItem prenume={item.prenume} />
-                        </td>
-                        <td>
-                          <NewFormItem nume={item.nume} />
-                        </td>
-                        <td>
-                          <NewFormItem mail={item.mail} />
-                        </td>
-                        <td>
-                          <NewFormItem phone={item.phone} />
-                        </td>
-                        <td>
-                          <NewFormItem lastEmployer={item.lastEmployer} />
-                        </td>
-                        <td>
-                          <NewFormItem currentTitle={item.currentTitle} />
-                        </td>
-                        <td>
-                          <Checkbox
-                            defaultChecked
-                            color="primary"
-                            inputProps={{ "aria-label": "secondary checkbox" }}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
+
+              {this.state.item
+                .filter(
+                  (item) =>
+                    item.prenume
+                      .toLowerCase()
+                      .includes(this.state.searchTerm) ||
+                    item.nume.toLowerCase().includes(this.state.searchTerm) ||
+                    item.mail.toLowerCase().includes(this.state.searchTerm) ||
+                    item.phone.toLowerCase().includes(this.state.searchTerm) ||
+                    item.lastEmployer
+                      .toLowerCase()
+                      .includes(this.state.searchTerm) ||
+                    item.currentTitle
+                      .toLowerCase()
+                      .includes(this.state.searchTerm)
+                )
+                .map((item) => {
+                  return (
+                    <tbody>
+                      <NewFormItem
+                        id={item.id}
+                        prenume={item.prenume}
+                        nume={item.nume}
+                        mail={item.mail}
+                        phone={item.phone}
+                        lastEmployer={item.lastEmployer}
+                        currentTitle={item.currentTitle}
+                        key={item.key}
+                      />
+                    </tbody>
+                  );
+                })}
             </table>
           </div>
         </div>
+        <div className="applicantCard"></div>
       </div>
     );
   }
