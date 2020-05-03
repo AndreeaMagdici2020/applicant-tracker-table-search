@@ -14,7 +14,7 @@
   padding: 5px;
 }
 .form {
-  width: 30%;
+  width: 300px;
   max-height: 500px;
   background-color: #e6faff;
   margin: 9px;
@@ -27,15 +27,17 @@
   width: 60%;
   min-height: 400px;
   background-color: #e6faff;
+  margin-right: 200px;
+  margin-top: 5px;
   float: right;
-  margin: 10px;
   padding: 5px;
 }
 
 #FormAddUsers input {
   height: 40px;
   margin: 10px;
-  width: 260px;
+  margin-left: 13%;
+  width: 210px;
   border-radius: 10px;
   background-color: #00a3cc;
   border: 0px;
@@ -74,18 +76,13 @@ tbody tr {
   color: #126e80;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 30px;
 }
 tbody > tr > td {
-  font-size: 20px;
-}
-table tbody tr:nth-child(even) {
-  background-color: thistle;
+  font-size: 19px;
 }
 
-tbody tr {
+tbody tr:nth-child(odd) {
   background-color: rgb(136, 197, 233);
-  font-weight: bold;
 }
 
 #avatar {
@@ -96,7 +93,7 @@ tbody tr {
 table tbody tr {
   color: #001f3f;
   font-family: "Times New Roman", Times, serif;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 500;
 }
 td > input {
@@ -176,12 +173,32 @@ img {
 }
 .applicantCard {
   border: 1px solid black;
-  margin-top: 5px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(173, 159, 173, 1);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(173, 159, 173, 1);
+  box-shadow: 10px 10px 5px 0px rgba(173, 159, 173, 1);
+  margin-top: -500px;
   width: 400px;
   height: 400px;
   float: right;
   margin-right: 350px;
   border-radius: 15px;
+  background: rgb(14, 165, 231);
+  background: -moz-linear-gradient(
+    270deg,
+    rgba(14, 165, 231, 1) 0%,
+    rgba(155, 218, 232, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    270deg,
+    rgba(14, 165, 231, 1) 0%,
+    rgba(155, 218, 232, 1) 100%
+  );
+  background: linear-gradient(
+    270deg,
+    rgba(14, 165, 231, 1) 0%,
+    rgba(155, 218, 232, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0ea5e7",endColorstr="#9bdae8",GradientType=1);
 }
 .icon {
   height: 80px;
