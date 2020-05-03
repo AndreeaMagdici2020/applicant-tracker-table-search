@@ -205,14 +205,26 @@ img {
   width: 80px;
   overflow: hidden;
   float: left;
+  margin: 15px;
 }
 .detalii {
-  float: right;
   width: 300px;
   height: 300px;
-  margin-top: 0px;
+  margin-left: 50px;
 }
 .detalii > p {
   font-size: 20px;
   color: red;
+}
+#close {
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  float: right;
+  margin: 5px;
+  background-color: #19ace4;
+  border: 0px;
+}
+#close:focus {
+  outline: none;
 }

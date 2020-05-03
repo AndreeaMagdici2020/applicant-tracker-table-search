@@ -7,6 +7,7 @@ import ImageAvatars from "./Avatar";
 import logo_size_invert from "./logo_size_invert.jpg";
 import iconMale from "./iconMale.png";
 import icon from "./icon.svg";
+import closeSvg from "./closeSvg.svg";
 
 let obj = {};
 var i = 3;
@@ -86,6 +87,11 @@ class App extends Component {
     this.addItem = this.addItem.bind(this);
     this.onCheck = this.onCheck.bind(this);
   }
+  //cand dau click pe butonul close, sa dispara div-ul cu detalii, similar cu unchecked.
+  closeDetails = () => {
+    this.setState({ checked: false });
+    console.log("closed");
+  };
 
   onCheck = (user) => {
     const newLocal = this.state.checked;
@@ -280,14 +286,19 @@ class App extends Component {
         </div>
         {this.state.checked !== false ? (
           <div className="applicantCard">
+            <button id="close" onClick={this.closeDetails}>
+              <img src={closeSvg} />
+            </button>
             <h3>Detalii Applicant</h3>
             <div className="icon">
               <img src={icon} />
             </div>
             <div className="detalii">
-              <p>Prenume: {this.state.selectedItem.prenume}</p>
-              <br />
-              <p>Nume: {this.state.selectedItem.nume}</p>
+              <p>
+                Prenume: {this.state.selectedItem.prenume}
+                <br />
+                Nume: {this.state.selectedItem.nume}
+              </p>
             </div>
           </div>
         ) : (
