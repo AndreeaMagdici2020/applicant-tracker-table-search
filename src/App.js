@@ -3,16 +3,40 @@ import NewFormItem from "./NewFormItem";
 import "./App.css";
 import Search from "./Search";
 import ImageAvatars from "./Avatar";
-
-import Clock from "./Clock";
+//import Clock from "./Clock";
 import logo_size_invert from "./logo_size_invert.jpg";
+import iconMale from "./iconMale.png";
+import icon from "./icon.svg";
 
+let obj = {};
 var i = 3;
+const useri = [
+  {
+    id: 1,
+    prenume: "Tatiana",
+    nume: "Ghimici",
+    mail: "istan@mail.com",
+    phone: "0777 333 543",
+    lastEmployer: "SC Yonder SRL",
+    currentTitle: "Web Developer",
+    key: Date.now(),
+  },
+  {
+    id: 2,
+    prenume: "Carmen",
+    nume: "Onofrei",
+    mail: "monofrei@mail.com",
+    phone: "0777 777 321",
+    lastEmployer: "SC Yonder SRL",
+    currentTitle: "Backend Developer",
+    key: Date.now(),
+  },
+];
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: [
+      items: [
         {
           id: 1,
           prenume: "Ionela",
@@ -54,14 +78,32 @@ class App extends Component {
       query: "",
       columnToQuery: "prenume",
       searchTerm: "",
-      selectedApplicant: null,
-      detailsTitle: "",
+      checked: false,
+      selectedItem: null,
+      details: "",
     };
     this.handleInput = this.handleInput.bind(this);
     this.addItem = this.addItem.bind(this);
-    this.onSelectApplicant = this.onSelectApplicant.bind(this);
+    this.onCheck = this.onCheck.bind(this);
   }
 
+  onCheck = (user) => {
+    const newLocal = this.state.checked;
+    return newLocal === false
+      ? () => {
+          this.setState({
+            checked: true,
+            selectedItem: user,
+            details: "Itemul selectat este:" + ":" + user.prenume,
+          });
+          console.log("checked");
+          console.log("selectedItem este:", user.prenume);
+        }
+      : () => {
+          this.setState({ checked: false });
+          console.log("unchecked");
+        };
+  };
   handleInput = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -72,14 +114,7 @@ class App extends Component {
     i = i + 1;
     return i;
   };
-  onSelectApplicant = (item) => {
-    this.setState({
-      selectedApplicant: item,
-      applicantDetails: "Nume:" + " " + item.prenume + " " + item.nume,
-    });
-    console.log("the item was clicked");
-    console.log(item.prenume);
-  };
+
   addItem = (event) => {
     event.preventDefault();
     const newItem = {
@@ -92,11 +127,14 @@ class App extends Component {
       key: Date.now(),
       id: this.generateId(),
     };
+
     // console.log(newItem);
     if (newItem.prenume !== "") {
-      const newItems = [...this.state.item, newItem];
+      const newItems = [...this.state.items, newItem];
+      //const newUser = newItem;
+      //console.log("vect este:", obj);
       this.setState({
-        item: newItems,
+        items: newItems,
         prenume: "",
         nume: "",
         mail: "",
@@ -104,8 +142,9 @@ class App extends Component {
         lastEmployer: "",
         currentTitle: "",
         key: "",
+        //useri: useri.push(newUser),
       });
-      // console.log("newItems este:", newItems);
+      //console.log("useri este:", useri);
     }
   };
   onSearchChange = (event) => {
@@ -120,9 +159,7 @@ class App extends Component {
               <img src={logo_size_invert} />
             </div>
             <p>APPLICANT TRACKING SYSTEM</p>{" "}
-            <div className="Clock">
-              <Clock />
-            </div>
+            <div className="Clock">{/* <Clock /> */}</div>
           </div>
         </div>
 
@@ -204,7 +241,7 @@ class App extends Component {
                 </tr>
               </thead>
 
-              {this.state.item
+              {this.state.items
                 .filter(
                   (item) =>
                     item.prenume
@@ -231,7 +268,9 @@ class App extends Component {
                         phone={item.phone}
                         lastEmployer={item.lastEmployer}
                         currentTitle={item.currentTitle}
-                        key={item.key}
+                        onSelectApplicant={this.onCheck(item)}
+                        checked={this.state.checked}
+                        user={item}
                       />
                     </tbody>
                   );
@@ -239,7 +278,21 @@ class App extends Component {
             </table>
           </div>
         </div>
-        <div className="applicantCard"></div>
+        {this.state.checked !== false ? (
+          <div className="applicantCard">
+            <h3>Detalii Applicant</h3>
+            <div className="icon">
+              <img src={icon} />
+            </div>
+            <div className="detalii">
+              <p>Prenume: {this.state.selectedItem.prenume}</p>
+              <br />
+              <p>Nume: {this.state.selectedItem.nume}</p>
+            </div>
+          </div>
+        ) : (
+          <p>please select a user</p>
+        )}
       </div>
     );
   }
