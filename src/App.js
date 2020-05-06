@@ -8,6 +8,7 @@ import logo_size_invert from "./logo_size_invert.jpg";
 import iconMale from "./iconMale.png";
 import icon from "./icon.svg";
 import closeSvg from "./closeSvg.svg";
+import Element from "./userItem";
 
 let obj = {};
 var i = 3;
@@ -304,6 +305,26 @@ class App extends Component {
         ) : (
           <p>please select a user</p>
         )}
+        <div className="useriList">
+          <form>
+            <input type="text"></input>
+            <input type="text"></input>
+            <button type="submit"></button>
+          </form>
+          <table>
+            <thead>
+              <tr>
+                <th>Prenume</th>
+                <th>Nume</th>
+              </tr>
+            </thead>
+            <tbody>
+              {useri.map((item) => {
+                return <Element user={item} />;
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
